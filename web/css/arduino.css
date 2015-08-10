@@ -1,0 +1,23 @@
+body {
+    padding-top: 71px;
+}
+
+.articleTitle:hover, .articleTitle:focus {
+    text-decoration: none;
+}
+
+.adminTable {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#errorPanel {
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+
+.footer {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    text-align: center;
+}

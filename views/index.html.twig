@@ -1,0 +1,49 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="MenuArduino" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Appareil
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="MenuArduino">
+        {% for arduino in arduinos %}
+            <li class="{% if arduino.id == idArduino %}active{% endif %}"><a href="{{ app.request.basepath }}/{{ arduino.id }}/{{ display }}">{{ arduino.numero }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<br />
+
+{% if json %}
+
+    <div class="ct-chart">&nbsp;</div>
+{% else %}
+    <p>Sélectionnez un Arduino dans la liste.</p>
+{% endif %}
+
+<br />
+
+<script>
+{% autoescape 'js' %}
+
+    {% if json %}
+        var xjson = JSON.parse('{{ json }}');
+
+        new Chartist.Line('.ct-chart', xjson, {
+          low: 0,
+          showArea: true,
+          fullWidth: true,
+          chartPadding: {
+            right: 40
+          }
+        });
+    {% endif %}
+
+{% endautoescape %}
+</script>
+
+{% endblock %}
