@@ -1,6 +1,7 @@
 {
-    "name"              : "its/arduino",
-    "description"       : "Website to pilot Arduinos",
+    "name": "its/arduino",
+    "description": "Website to pilot Arduinos",
+    "license": "GPL-3.0+,"
     "require": {
         "silex/silex": "~1.2",
         "doctrine/dbal": "~2.4",

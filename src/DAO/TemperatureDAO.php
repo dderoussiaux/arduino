@@ -25,15 +25,8 @@ class TemperatureDAO extends DAO
     }
 
     public function findAllForArduino($idArduino, $display){
-        if ($display == 'day'){
-            $debut = time() - 86400; // (-24h)
-        }elseif($display == 'month'){
-            $debut = time() - 2419200; // (-4semaines)
-        }
-
         $sql = "select * from temperature where id_arduino = $idArduino order by time asc";
         $result = $this->getDb()->fetchAll($sql);
-        //var_dump($sql);die();
 
         // Convert query result to an array of domain objects
         $temperatures = array();
