@@ -50,6 +50,8 @@ class HomeController {
     public function addTemperatureAction(Request $request, Application $app, $idArduino, $valeur=-99, $time=null){
         if (!$time){
             $time = date("Y-m-d H:i:s");
+        }else{
+            $time = date("Y-m-d H:i:s", $time);
         }
         if ($valeur == -99){
             return $app->json('No value', 400);  // 400 = Bad Request
