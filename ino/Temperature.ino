@@ -355,7 +355,7 @@ boolean sendData(time_t t, int sensorValue) {
   Serial.println( temp );
   
   /* Envoi de la requete HTTP */
-  client.print(F("GET /Arduino/web/temperature/add/"));
+  client.print(F("GET /arduino/temperature/add/"));
   client.print( numArduino );
   client.print( "/" );
   client.print( temp );
