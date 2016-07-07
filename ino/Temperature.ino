@@ -1,7 +1,7 @@
 #include <SD.h>          /* Pour la carte SD */
-#include <Ethernet.h>    /* Pour la shield ethernet */
+#include <Ethernet2.h>    /* Pour la shield ethernet V2 */
 #include <SPI.h>         /* Pour la communication bas niveau (carte SD et ethernet) */
-#include <EthernetUdp.h> /* Pour la communication UDP */
+#include <EthernetUdp2.h> /* Pour la communication UDP */
 #include <Time.h>        /* Pour la gestion du temps */
 
 /** Taille du buffer pour la lecture du fichier texte et l'envoi de la requete HTTP **/
@@ -27,13 +27,13 @@ static byte localMacAddressV2[] = { 0x90, 0xA2, 0xDA, 0x0F, 0xFD, 0x00 };
 static const unsigned int listenPort = 8888;
 
 /** Adresse IP de l'ethernet shield **/
-static IPAddress localIpAddress(172, 16, 128, 250); 
+static IPAddress localIpAddress(172, 16, 128, 249); 
 
 /** Adresse de ntp **/
 static char timeServer[] = "time.nist.gov";
 
 /** Adresse IP serveur perso PHP **/
-static IPAddress serverIpAddress(172, 16, 100, 6);
+static IPAddress serverIpAddress(172, 16, 128, 120);
 
 /** Instance de EthernetUDP permettant l'échange de données via UDP **/
 static EthernetUDP Udp;
@@ -64,10 +64,10 @@ void setup() {
 
   /* Initialisation de la shield ethernet et UDP */
   Serial.println(F("Initialisation de la carte reseau ... "));
-  if (Ethernet.begin(localMacAddressV1) == 0) {
+  if (Ethernet.begin(localMacAddressV2) == 0) {
     Serial.println("Failed to configure Ethernet using DHCP");
     // try to congifure using IP address instead of DHCP
-    Ethernet.begin(localMacAddressV1, localIpAddress);
+    Ethernet.begin(localMacAddressV2, localIpAddress);
   }
   Serial.print("Mon IP : ");
   Serial.println(Ethernet.localIP());
@@ -392,10 +392,10 @@ float convertTemp(int sensorValue){
   // Maintenant, il signifie à la fois "temporaire" et "Température"
   Temp = 100.0 / (A + (B * Temp) + (C * Temp * Temp * Temp));
 
-  // Convertir Kelvin en Celsius     // Maintenant, le "Temp" il signifie seulement "Température"
+  // Convertir Kelvin en Celsius     // Maintenant, "Temp" signifie seulement "Température"
   Temp = Temp - 273.15;
 
-  // On fait un sustraction de 2.3025 a cause du permier calcul qu'on a fait avec lafonction log
+  // On fait une division de 2.3025 a cause du premier calcul qu'on a fait avec la fonction log
   Temp = Temp / 2.3025;
 
   return Temp;
